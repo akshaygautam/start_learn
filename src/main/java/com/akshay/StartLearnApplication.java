@@ -11,9 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @ComponentScan
 @EnableJpaRepositories
 @EnableAutoConfiguration
-public class StartLearnApplication extends SpringBootServletInitializer{
+
+public class StartLearnApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {
 		SpringApplication.run(StartLearnApplication.class, args);
 	}
+	
+	
 }

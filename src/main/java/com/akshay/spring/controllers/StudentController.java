@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,31 +18,31 @@ import com.akshay.spring.services.StudentService;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin
 public class StudentController {
 	
 	@Autowired
 	private StudentService studentService;
 	
-	@GetMapping("/getAllStudents")
+	@GetMapping("/student")
 	public List<StudentDTO> getAllStudents() {
 		System.out.println("Get all");
 		return studentService.getAllStudents();
 	}
 	
-	@GetMapping("/getStudentByRollNumber")
-	public StudentDTO getStudentBy(@RequestParam(name="rollNumber") String rollNumber) {
+	@GetMapping("/student/{rollNumber}")
+	public StudentDTO getStudentBy(@PathVariable String rollNumber) {
 		return studentService.getStudentBy(rollNumber);
 	}
 	
-	@PostMapping("/saveStudent")
+	@PostMapping("/student")
 	public StudentDTO saveStudent(@RequestBody StudentDTO studentDTO) {
 		System.out.println("Save student");
 		System.out.println(studentDTO);
 		return studentService.saveStudent(studentDTO);
 	}
-	@PostMapping("/deleteStudentByRollNumber")
-	public void deleteStudentBy(@RequestParam(name="rollNumber")String rollNumber) {
+	@DeleteMapping("/student/{rollNumber}")
+	public void deleteStudentBy(@PathVariable String rollNumber) {
 		System.out.println("delete student\t"+rollNumber);
 		studentService.deleteStudentBy(rollNumber);
 	}

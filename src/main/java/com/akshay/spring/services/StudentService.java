@@ -12,6 +12,6 @@ public interface StudentService {
 
 	StudentDTO saveStudent(StudentDTO studentDTO);
 
-	void deleteStudentBy(String rollNumber);
+	StudentDTO deleteStudentBy(String rollNumber);
 
 }

@@ -12,6 +12,7 @@ public class StudentDTO {
 	String fathersName;
 	String mothersName;
 	String address;
+	Boolean deleted;
 	
 	public Long getId() {
 		return id;
@@ -73,13 +74,19 @@ public class StudentDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public Boolean getDeleted() {
+		return deleted;
+	}
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 	@Override
 	public String toString() {
 		return "StudentDTO [id=" + id + ", rollNumber=" + rollNumber + ", firstName=" + firstName + ", lastName="
 				+ lastName + ", standard=" + standard + ", phoneNumber=" + phoneNumber + ", emailId=" + emailId
-				+ ", fathersName=" + fathersName + ", mothersName=" + mothersName + ", address=" + address + "]";
+				+ ", fathersName=" + fathersName + ", mothersName=" + mothersName + ", address=" + address
+				+ ", deleted=" + deleted + "]";
 	}
-	
 	
 
 }

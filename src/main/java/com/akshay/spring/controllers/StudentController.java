@@ -41,10 +41,9 @@ public class StudentController {
 		return studentService.saveStudent(studentDTO);
 	}
 	@DeleteMapping("/student/{rollNumber}")
-	public List<StudentDTO> deleteStudentBy(@PathVariable String rollNumber) {
+	public StudentDTO deleteStudentBy(@PathVariable String rollNumber) {
 		System.out.println("delete student\t"+rollNumber);
-		studentService.deleteStudentBy(rollNumber);
-		return getAllStudents();
+		return studentService.deleteStudentBy(rollNumber);
 	}
 	
 }

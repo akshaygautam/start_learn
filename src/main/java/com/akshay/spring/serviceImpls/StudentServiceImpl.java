@@ -55,10 +55,15 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public StudentDTO saveStudent(StudentDTO studentDTO) {
 		validateStudent(studentDTO);
-		StudentModel studentModel = convertDTOToModel(studentDTO);
+		//StudentModel studentModel = convertDTOToModel(studentDTO);
 		try {
-			StudentModel savedStudentModel = studentRepository.save(studentModel);
-			return convertModelToDTO(savedStudentModel);
+			StudentModel studentModel = convertDTOToModel(studentDTO);
+			StudentModel savedStudent =null;
+			if(null != studentModel) {
+				savedStudent = studentRepository.save(studentModel);
+			}
+			LOGGER.log(Level.SEVERE, "savedStudent student\n" + savedStudent);
+			return convertModelToDTO(savedStudent);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Error while saving student\n" + e);
 			throw new ApiException("Error while saving student", e);
@@ -91,14 +96,14 @@ public class StudentServiceImpl implements StudentService {
 
 	public void validateStudent(StudentDTO studentDTO) {
 		if (null == studentDTO || StringUtils.isBlank(studentDTO.getAddress())
-				|| StringUtils.isEmpty(studentDTO.getAddress()) || StringUtils.isBlank(studentDTO.getEmailId())
-				|| StringUtils.isEmpty(studentDTO.getEmailId()) || StringUtils.isBlank(studentDTO.getFathersName())
+				|| StringUtils.isEmpty(studentDTO.getAddress()) 	|| StringUtils.isBlank(studentDTO.getEmailId())
+				|| StringUtils.isEmpty(studentDTO.getEmailId()) 	|| StringUtils.isBlank(studentDTO.getFathersName())
 				|| StringUtils.isEmpty(studentDTO.getFathersName()) || StringUtils.isBlank(studentDTO.getFirstName())
-				|| StringUtils.isEmpty(studentDTO.getFirstName()) || StringUtils.isBlank(studentDTO.getLastName())
-				|| StringUtils.isEmpty(studentDTO.getLastName()) || StringUtils.isBlank(studentDTO.getMothersName())
+				|| StringUtils.isEmpty(studentDTO.getFirstName()) 	|| StringUtils.isBlank(studentDTO.getLastName())
+				|| StringUtils.isEmpty(studentDTO.getLastName()) 	|| StringUtils.isBlank(studentDTO.getMothersName())
 				|| StringUtils.isEmpty(studentDTO.getMothersName()) || StringUtils.isBlank(studentDTO.getPhoneNumber())
 				|| StringUtils.isEmpty(studentDTO.getPhoneNumber()) || StringUtils.isBlank(studentDTO.getRollNumber())
-				|| StringUtils.isEmpty(studentDTO.getRollNumber()) || StringUtils.isBlank(studentDTO.getStandard())
+				|| StringUtils.isEmpty(studentDTO.getRollNumber()) 	|| StringUtils.isBlank(studentDTO.getStandard())
 				|| StringUtils.isEmpty(studentDTO.getStandard()))
 			throw new ApiException("Student detalis not valid");
 		else

@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.akshay.spring.dtos.StudentDTO;
@@ -20,6 +21,7 @@ import com.akshay.spring.utils.StringUtils;
 public class StudentServiceImpl implements StudentService {
 
 	@Autowired
+	@Lazy
 	StudentRepository studentRepository;
 
 	private ModelMapper mapper = new ModelMapper();
@@ -53,9 +55,10 @@ public class StudentServiceImpl implements StudentService {
 	@Override
 	public StudentDTO saveStudent(StudentDTO studentDTO) {
 		validateStudent(studentDTO);
+		StudentModel studentModel = convertDTOToModel(studentDTO);
 		try {
-			StudentModel studentModel = convertDTOToModel(studentDTO);
-			return convertModelToDTO(studentRepository.save(studentModel));
+			StudentModel savedStudentModel = studentRepository.save(studentModel);
+			return convertModelToDTO(savedStudentModel);
 		} catch (Exception e) {
 			LOGGER.log(Level.SEVERE, "Error while saving student\n" + e);
 			throw new ApiException("Error while saving student", e);
@@ -74,19 +77,19 @@ public class StudentServiceImpl implements StudentService {
 		}
 	}
 
-	private StudentDTO convertModelToDTO(StudentModel student) {
+	public StudentDTO convertModelToDTO(StudentModel student) {
 		StudentDTO studentDTO = new StudentDTO();
 		mapper.map(student, studentDTO);
 		return studentDTO;
 	}
 
-	private StudentModel convertDTOToModel(StudentDTO student) {
+	public StudentModel convertDTOToModel(StudentDTO student) {
 		StudentModel studentModel = new StudentModel();
 		mapper.map(student, studentModel);
 		return studentModel;
 	}
 
-	private void validateStudent(StudentDTO studentDTO) {
+	public void validateStudent(StudentDTO studentDTO) {
 		if (null == studentDTO || StringUtils.isBlank(studentDTO.getAddress())
 				|| StringUtils.isEmpty(studentDTO.getAddress()) || StringUtils.isBlank(studentDTO.getEmailId())
 				|| StringUtils.isEmpty(studentDTO.getEmailId()) || StringUtils.isBlank(studentDTO.getFathersName())
@@ -102,7 +105,7 @@ public class StudentServiceImpl implements StudentService {
 			chekcUniqenessOfStudent(studentDTO);
 	}
 
-	private void chekcUniqenessOfStudent(StudentDTO studentDTO) {
+	public void chekcUniqenessOfStudent(StudentDTO studentDTO) {
 		if (null == studentDTO.getId() && null != studentRepository.findByRollNumber(studentDTO.getRollNumber())) {
 			LOGGER.log(Level.SEVERE, "Student already exist with rollnumber: " + studentDTO.getRollNumber());
 			throw new ApiException("Student already exist with rollnumber: " + studentDTO.getRollNumber());

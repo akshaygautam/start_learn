@@ -3,6 +3,7 @@ package com.akshay.spring.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ import com.akshay.spring.services.StudentService;
 public class StudentController {
 	
 	@Autowired
+	@Lazy
 	private StudentService studentService;
 	
 	@GetMapping("/student")

@@ -130,7 +130,7 @@ public class StudentServiceImpTest {
 	
 	@Test
 	public void testSaveStudent() {
-//		Mockito.when(repository.save(studentModel)).thenReturn(studentModel);
+		Mockito.when(repository.save(studentModel)).thenReturn(studentModel);
 		StudentDTO student = studentService.saveStudent(studentDTO);
 //		Mockito.verify(repository, Mockito.times(1)).save(Mockito.eq(studentModel));
 		

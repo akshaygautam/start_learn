@@ -152,11 +152,8 @@ public class StudentServiceImpTest {
 
 	@Test
 	public void testSaveStudent() {
-<<<<<<< HEAD
-		Mockito.when(repository.save(studentModel)).thenReturn(studentModel);
-=======
-		 Mockito.when(studentRepository.save(any(StudentModel.class))).thenReturn(studentModel);
->>>>>>> f6bcb67fe9b403a232e700156aba7643eee8b268
+
+		Mockito.when(studentRepository.save(studentModel)).thenReturn(studentModel);
 		StudentDTO student = studentService.saveStudent(studentDTO);
 		// Mockito.verify(repository, Mockito.times(1)).save(Mockito.eq(studentModel));
 
